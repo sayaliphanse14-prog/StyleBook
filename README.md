@@ -1,122 +1,136 @@
-# StyleBook — Salon Appointment Booking (MERN Stack)
+# StyleBook — Salon Appointment Booking
 
-A beginner-friendly full-stack salon booking website built with
-**MongoDB, Express, React, Node.js (MERN)**, designed for a B.Tech
-Web Technologies lab where one project demonstrates all 10 practicals.
-See **PRACTICAL_MAPPING.md** for which file to open for each practical.
+StyleBook is a MERN Stack web application for salon appointment booking. It allows users to view salon services, register/login, and book appointments online.
 
----
+## Features
 
-## 1. Folder Structure
+- User registration and login
+- JWT-based authentication
+- View salon services and prices
+- Book salon appointments
+- View bookings
+- Cancel bookings
+- Responsive React frontend
+- MongoDB database
+- REST API using Express.js
 
-```
-StyleBook/
-│
-├── practical1-3-html-css-js/     # Plain HTML/CSS/JS (Practicals 1-3)
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── practical7-nodejs-core/       # Pure Node.js, no npm packages (Practical 7)
-│   ├── 01-http-server.js
-│   ├── 02-modules-demo.js
-│   ├── 03-file-handling.js
-│   ├── myModule.js
-│   └── package.json
-│
-├── backend/                      # Express + MongoDB REST API
-│   ├── config/db.js
-│   ├── models/ (User.js, Service.js, Appointment.js)
-│   ├── controllers/ (authController.js, serviceController.js, appointmentController.js)
-│   ├── routes/ (authRoutes.js, serviceRoutes.js, appointmentRoutes.js)
-│   ├── middleware/ (auth.js, validate.js)
-│   ├── seed/seedServices.js
-│   ├── server.js
-│   ├── package.json
-│   └── .env.example
-│
-├── frontend/                     # React application
-│   ├── public/index.html
-│   ├── src/
-│   │   ├── api/axios.js
-│   │   ├── components/ (Navbar, Footer, ServiceCard, ProtectedRoute)
-│   │   ├── context/AuthContext.js
-│   │   ├── hooks/useAuth.js
-│   │   ├── pages/ (Home, Services, Register, Login, BookAppointment, MyAppointments)
-│   │   ├── App.js
-│   │   ├── App.css
-│   │   └── index.js
-│   └── package.json
-│
-├── PRACTICAL_MAPPING.md
+## Project Structure
+
+```text
+STYLEBOOK/
+├── backend/
+├── frontend/
+├── .gitignore
 └── README.md
 ```
 
----
+## Technologies Used
 
-## 2. Prerequisites
+### Frontend
 
-- Node.js (v18+) and npm installed — check with `node -v` and `npm -v`
-- MongoDB installed locally **OR** a free MongoDB Atlas cloud account
-- A code editor (VS Code recommended)
+- React.js
+- React Router
+- Axios
+- HTML
+- CSS
+- JavaScript
 
----
+### Backend
 
-## 3. MongoDB Setup
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
+- CORS
+- dotenv
 
-**Option A — Local MongoDB**
-1. Install MongoDB Community Server and start the `mongod` service.
-2. Your connection string will be: `mongodb://127.0.0.1:27017/stylebook`
+### Deployment
 
-**Option B — MongoDB Atlas (cloud, no local install needed)**
-1. Create a free cluster at https://www.mongodb.com/cloud/atlas
-2. Click "Connect" → "Drivers" → copy the connection string
-3. Replace `<username>` and `<password>` with your database user credentials
+- MongoDB Atlas — Database
+- Render — Backend
+- Netlify — Frontend
 
----
+## Prerequisites
 
-## 4. Backend Setup
+Before running the project, install:
+
+- Node.js
+- npm
+- MongoDB Atlas account
+- Git
+- VS Code
+
+## MongoDB Atlas Setup
+
+1. Create a MongoDB Atlas cluster.
+2. Create a database user.
+3. Add your IP address in Network Access.
+4. For cloud deployment, allow access from `0.0.0.0/0`.
+5. Get the MongoDB connection string.
+6. Use the connection string in the backend `.env` file.
+
+Example:
+
+```env
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/stylebook
+JWT_SECRET=your_secret_key
+PORT=5000
+```
+
+**Do not upload the `.env` file to GitHub.**
+
+## Backend Setup
+
+Open a terminal and run:
 
 ```bash
 cd backend
 npm install
-cp .env.example .env
 ```
 
-Edit `.env` and set your `MONGO_URI` and `JWT_SECRET`:
+Create a `.env` file inside the `backend` folder:
 
-```
-MONGO_URI=mongodb://127.0.0.1:27017/stylebook
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 PORT=5000
-JWT_SECRET=stylebook_super_secret_key_change_this
 ```
 
-Seed the 8 salon services into the database (run once):
+To seed the salon services:
 
 ```bash
 npm run seed
 ```
 
-Start the backend server:
+To start the backend in development mode:
 
 ```bash
 npm run dev
 ```
 
-You should see:
+Or start normally:
+
+```bash
+npm start
 ```
-MongoDB Connected: ...
-StyleBook backend server running on http://localhost:5000
+
+The backend runs on:
+
+```text
+http://localhost:5000
 ```
 
-Test it works by opening: http://localhost:5000/api/services in your browser —
-you should see a JSON list of 8 services.
+The services API can be tested at:
 
----
+```text
+http://localhost:5000/api/services
+```
 
-## 5. Frontend Setup
+## Frontend Setup
 
-Open a **new terminal** (keep the backend running):
+Open another terminal:
 
 ```bash
 cd frontend
@@ -124,94 +138,128 @@ npm install
 npm start
 ```
 
-This opens the React app at http://localhost:3000
+The React application runs on:
 
-The frontend is already configured to call the backend at
-`http://localhost:5000/api` (see `frontend/src/api/axios.js`). If you
-change the backend port, update that file too.
-
----
-
-## 6. Practical 1–3 (Static HTML/CSS/JS) — No installation needed
-
-Just open the file directly in a browser:
-
-```
-practical1-3-html-css-js/index.html
-```
-(Right-click → Open with Browser, or use VS Code's "Live Server" extension.)
-
----
-
-## 7. Practical 7 (Pure Node.js demos) — No npm install needed
-
-```bash
-cd practical7-nodejs-core
-node 01-http-server.js       # then visit http://localhost:5001
-node 02-modules-demo.js      # prints module output to terminal
-node 03-file-handling.js     # creates bookings-log.txt in this folder
+```text
+http://localhost:3000
 ```
 
----
+## Salon Services
 
-## 8. How to Use the Website (End-to-End Test)
+The application contains the following services:
 
-1. Go to http://localhost:3000
-2. Click **Register** → create an account (name, email, password, 10-digit phone)
-3. You'll be logged in automatically and redirected to **Services**
-4. Click **Book Now** on any service (e.g. Haircut ₹300)
-5. Pick a date and time → **Confirm Booking**
-6. Go to **My Appointments** → see your booking, try **Cancel** or **Delete**
-7. Click **Logout**, then **Login** again with the same credentials to confirm auth works
+| Service | Price |
+|---|---:|
+| Haircut | ₹300 |
+| Hair Styling | ₹500 |
+| Hair Spa | ₹800 |
+| Facial | ₹700 |
+| Manicure | ₹400 |
+| Pedicure | ₹500 |
+| Bridal Makeup | ₹5000 |
+| Hair Coloring | ₹1500 |
 
----
+## API Endpoints
 
-## 9. REST API Reference (for Postman / viva demo)
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/services` | Get all salon services |
+| POST | `/api/auth/register` | Register a user |
+| POST | `/api/auth/login` | Login user |
+| GET | `/api/bookings` | Get bookings |
+| POST | `/api/bookings` | Create a booking |
+| DELETE | `/api/bookings/:id` | Cancel a booking |
 
-| Method | Endpoint | Auth Required | Purpose |
-|--------|----------|----------------|---------|
-| POST | `/api/auth/register` | No | Register a new user |
-| POST | `/api/auth/login` | No | Login, returns JWT |
-| GET | `/api/services` | No | List all services |
-| GET | `/api/services/:id` | No | Get one service |
-| POST | `/api/services` | No | Create a service (admin/demo) |
-| PUT | `/api/services/:id` | No | Update a service |
-| DELETE | `/api/services/:id` | No | Delete a service |
-| POST | `/api/appointments` | Yes | Book an appointment |
-| GET | `/api/appointments/my` | Yes | Get logged-in user's appointments |
-| GET | `/api/appointments` | Yes | Get all appointments |
-| PUT | `/api/appointments/:id` | Yes | Update/cancel appointment |
-| DELETE | `/api/appointments/:id` | Yes | Delete appointment |
+## Deployment
 
-For protected routes, add header: `Authorization: Bearer <token>`
-(token is returned by the login/register response).
+### 1. MongoDB Atlas
 
----
+Use MongoDB Atlas as the cloud database.
 
-## 10. Deployment Instructions (Optional, for demonstrating "production-ready")
+The MongoDB connection string should be added as the `MONGO_URI` environment variable in Render.
 
-**Backend (e.g. Render / Railway):**
-1. Push the `backend/` folder to a GitHub repo
-2. Create a new Web Service, connect the repo
-3. Set environment variables (`MONGO_URI`, `JWT_SECRET`, `PORT`) in the host's dashboard
-4. Build command: `npm install` — Start command: `npm start`
+### 2. Deploy Backend on Render
 
-**Frontend (e.g. Netlify / Vercel):**
-1. Push the `frontend/` folder to a GitHub repo
-2. Build command: `npm run build` — Publish directory: `build`
-3. Before deploying, update `frontend/src/api/axios.js` `baseURL` to point
-   to your deployed backend URL (e.g. `https://stylebook-api.onrender.com/api`)
+Create a new Web Service on Render and connect the GitHub repository.
 
-**MongoDB:** Use MongoDB Atlas (cloud) for deployment since a locally
-installed MongoDB is not reachable by a hosted backend.
+Use these settings:
 
----
+```text
+Root Directory: backend
+Build Command: npm install
+Start Command: npm start
+```
 
-## 11. Troubleshooting
+Add the following environment variables:
 
-| Problem | Fix |
-|---------|-----|
-| "MongoDB Connected" never prints | Check `MONGO_URI` in `.env`, ensure MongoDB is running |
-| Frontend shows "Could not load services" | Make sure backend is running on port 5000 |
-| 401 Unauthorized on booking | Log out and log in again to get a fresh token |
-| CORS error in browser console | Confirm `cors()` middleware is active in `backend/server.js` |
+```text
+MONGO_URI = your MongoDB Atlas connection string
+JWT_SECRET = your secret key
+PORT = 5000
+```
+
+After deployment, Render provides a backend URL such as:
+
+```text
+https://stylebook-api.onrender.com
+```
+
+Test the backend using:
+
+```text
+https://your-render-url.onrender.com/api/services
+```
+
+### 3. Update Frontend API URL
+
+After deploying the backend, update the frontend Axios configuration so that it uses the Render backend URL instead of:
+
+```text
+http://localhost:5000
+```
+
+For example:
+
+```text
+https://your-render-url.onrender.com
+```
+
+### 4. Deploy Frontend on Netlify
+
+Connect the GitHub repository to Netlify.
+
+Use:
+
+```text
+Base Directory: frontend
+Build Command: npm run build
+Publish Directory: build
+```
+
+Netlify will provide a live URL for the StyleBook frontend.
+
+## End-to-End Testing
+
+After deployment, test the complete application:
+
+1. Open the deployed website.
+2. Register a new user.
+3. Login with the registered account.
+4. View salon services.
+5. Book an appointment.
+6. Check the booking.
+7. Cancel the booking.
+8. Logout.
+9. Login again.
+
+## GitHub Repository
+
+The source code for this project is available on GitHub:
+
+**StyleBook MERN Project**
+
+https://github.com/sayaliphanse14-prog/StyleBook
+
+## Conclusion
+
+StyleBook demonstrates the development and deployment of a MERN Stack application using React, Node.js, Express.js, MongoDB Atlas, Render, and Netlify.
