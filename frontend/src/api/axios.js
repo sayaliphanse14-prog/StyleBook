@@ -4,7 +4,7 @@ import axios from "axios";
 
 // change this if your backend runs on a different URL/port
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+ baseURL: "https://stylebook-backend.onrender.com/api",
 });
 
 // Automatically attach the JWT token (if present) to every request
